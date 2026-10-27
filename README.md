@@ -1,4 +1,4 @@
-# Baguette 🥖 🥖
+# Baguette 🥖🥖🥖
 
 ![Demo](docs/demo-optimized.gif)
 
