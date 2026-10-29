@@ -7,6 +7,47 @@ function withRedirectTo(path, redirectTo) {
   return `${path}?redirectTo=${encodeURIComponent(redirectTo)}`;
 }
 
+function ShinyBlinkingRabbit() {
+  const rabbitStyle = `
+    @keyframes blink {
+      0%, 10%, 20%, 100% { opacity: 1; }
+      5%, 15% { opacity: 0.3; }
+    }
+    @keyframes shine {
+      0%, 100% { filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0)); }
+      50% { filter: drop-shadow(2px 2px 8px rgba(255, 215, 0, 0.8)); }
+    }
+    @keyframes hop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .rabbit-container {
+      animation: hop 1.5s ease-in-out infinite;
+    }
+    .rabbit-eyes {
+      animation: blink 2s ease-in-out infinite;
+    }
+    .rabbit-shine {
+      animation: shine 1.8s ease-in-out infinite;
+    }
+  `;
+
+  return <style dangerouslySetInnerHTML={{ __html: rabbitStyle }} />;
+}
+
+function Rabbit() {
+  return (
+    <div className="absolute top-12 right-12 pointer-events-none">
+      <ShinyBlinkingRabbit />
+      <div className="rabbit-shine" style={{ fontSize: '4rem' }}>
+        <div className="rabbit-container" style={{ display: 'inline-block' }}>
+          <div className="rabbit-eyes">🐰</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Login() {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
@@ -17,6 +58,8 @@ export default function Login() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[500px] h-[500px] bg-brand/[0.06] rounded-full blur-3xl" />
       </div>
+
+      <Rabbit />
 
       <div className="bg-nav rounded-2xl p-10 text-center max-w-sm w-full shadow-2xl border border-line relative">
         <BaguetteIcon className="w-16 h-16 mx-auto mb-4" />
